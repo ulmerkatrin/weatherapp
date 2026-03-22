@@ -3,35 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/style.css">
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <form>
-            <input type="search" placeholder="Please enter city..." required />
-            <input type="submit" value="Search" />
-        </form>
-    </header>
-    <main>
-        <div>
+    <div class="title">
         <h1>
-            Lisbon
+            Weather App
         </h1>
-        <p>
-            Monday 18:41, cloudy
-            <br>
-            Humidty: 66%, Wind: 3.31km/h
-        </p>
+    </div>
+    <div class="card">
+        <div class="search">
+            <input type="search" placeholder="Enter city" required id="city-search" />
+            <button id="search-button">
+                <img src="src/img/search-icon.svg" alt="Search">
+            </button>
         </div>
-        <div>
-            🌨️ -2°C
+    <div class="weather-details" style="display: none;">
+        <div class="city"></div>
+        <div class="weather">
+            <h1 class="temp"></h1>
+            <h2 class="description"></h2>
         </div>
-    </main>
+        <img class="weather-icon" src="" alt="Weather icon">
+        <div class="details">
+            <div class="col">
+                <img src="src/img/humidity-icon.svg" alt="Humidity icon">
+                <span class="humidity"></span>
+            </div>
+            <div class="col">
+                <img src="src/img/wind-icon.svg" alt="Wind icon">
+                <span class="wind"></span>
+            </div>
+        </div>
+    </div>
     <footer> 
         Brought to you by
                 <a href="https://github.com/ulmerkatrin" target="_blank">Katrin Ulmer</a> and is
                 <a href="https://github.com/ulmerkatrin/githubhomework" target="_blank"> on GitHub</a> and
                 <a href="https://weather-currents.netlify.app/" target="_blank">hosted on Netlify</a>
     </footer>
+    </div>
 </body>
 </html>
