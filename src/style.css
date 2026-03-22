@@ -118,6 +118,10 @@ body {
     margin-top: 50px;
 }
 
+.details {
+    gap: 40px;
+}
+
 .col {
     display: flex;
     align-items: center;
