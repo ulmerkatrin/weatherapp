@@ -1,5 +1,6 @@
 const apiKey = "234180b1fac3cd52a404393etbea103o";
 const apiUrl = 'https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}';
+axios.get(apiUrl)
 
 const searchBox = document.querySelector('.search input');
 const searchBtn = document.querySelector('.search button');
