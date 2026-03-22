@@ -74,6 +74,10 @@ body {
     cursor: pointer;
 }
 
+search:hover {
+    background-color: #555;
+}
+
 .search button img {
     width: 30px;
 }
