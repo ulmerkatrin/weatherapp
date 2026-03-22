@@ -74,8 +74,8 @@ body {
     cursor: pointer;
 }
 
-search:hover {
-    background-color: #555;
+.search button:hover {
+    background: #d8b4fe;
 }
 
 .search button img {
@@ -124,6 +124,6 @@ search:hover {
     margin-top: -5px;
 }
 
-footer {
+footer a {
     color: white;
 }
