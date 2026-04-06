@@ -9,26 +9,52 @@ var tempElement = document.querySelector('.temp');
 var humidityElement = document.querySelector('.humidity');
 var windElement = document.querySelector('.wind');
 var weatherDetails = document.querySelector('.weather-details');
+var forecastContainer = document.querySelector('.forecast-container');
+var forecastGrid = document.getElementById('forecast-grid');
 
 weatherDetails.style.display = 'none';
+forecastContainer.style.display = 'none';
+
+function getWeatherIcon(description) {
+    const desc = description.toLowerCase();
+    if (desc.includes('cloud')) return 'src/img/cloudy-icon.svg';
+    if (desc.includes('clear')) return 'src/img/egg-sunny-side-up-icon.svg';
+    if (desc.includes('rain')) return 'src/img/rain-icon.svg';
+    if (desc.includes('drizzle')) return 'src/img/cloud-drizzle-icon.svg';
+    if (desc.includes('mist') || desc.includes('fog')) return 'src/img/mist-icon.svg';
+    if (desc.includes('snow')) return 'src/img/snowing-icon.svg';
+    return 'src/img/egg-sunny-side-up-icon.svg';
+}
+
+function getDayName(timestamp) {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return days[new Date(timestamp * 1000).getDay()];
+}
 
 async function checkWeather(city) {
     if (!city) {
         weatherDetails.style.display = 'none';
+        forecastContainer.style.display = 'none';
         return;
     }
 
     
-    const response = await fetch(
+    const currentResponse = await fetch(
         `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`
     );
-    var data = await response.json();
+    const data = await currentResponse.json();
 
-    console.log(data);
+    console.log('Current:', data);
 
     
-    if (data.city) {
-        weatherDetails.style.display = 'block';
+    if (!data.city) {
+        weatherDetails.style.display = 'none';
+        forecastContainer.style.display = 'none';
+        alert("City not found");
+        return;
+    }
+
+    weatherDetails.style.display ='block';
 
        
         cityElement.innerHTML = data.city;
@@ -36,23 +62,43 @@ async function checkWeather(city) {
         humidityElement.innerHTML = data.temperature.humidity + '%';
         windElement.innerHTML = data.wind.speed + ' km/h';
 
-        
-        if (data.condition.description.includes('cloud')) {
-            weatherIcon.src = 'src/img/cloudy-icon.svg';
-        } else if (data.condition.description.includes('clear')) {
-            weatherIcon.src = 'src/img/egg-sunny-side-up-icon.svg';
-        } else if (data.condition.description.includes('rain')) {
-            weatherIcon.src = 'src/img/rain-icon.svg';
-        } else if (data.condition.description.includes('drizzle')) {
-            weatherIcon.src = 'src/img/cloud-drizzle-icon.svg';
-        } else if (data.condition.description.includes('mist') || data.condition.description.includes('fog')) {
-            weatherIcon.src = 'src/img/mist-icon.svg';
-        } else if (data.condition.description.includes('snow')) {
-            weatherIcon.src = 'src/img/snowing-icon.svg';
-        }
+const descEl = document.querySelector('.description');
+if (descEl) descEl.innerHTML = data.condition.description;
+
+weatherIcon.src = getWeatherIcon(data.condition.description);
+
+const forecastResponse = await fetch (
+    `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`
+);
+const forecastData = await forecastResponse.json();
+
+console.log('Forecast:', forecastData);
+
+if (forecastData.daily && forecastData.daily.length > 0) {
+    forecastGrid.innerHTML = '';
+
+const days = forecastData.daily.slice(0,5);
+
+days.forEach(day => {
+    const iconSrc = getWeatherIcon(day.condition.description);
+    const temp = Math.round(day.temperature.day);
+    const dayName = getDayName(day.time);
+    const desc = day.condition.description;
+
+    const card = document.createElement('div');
+    card.classList.add('forecast-day');
+    card.innerHTML = `
+        <span class="day-name">${dayName}</span>
+        <img src="${iconSrc}" alt="${desc}">
+        <span class="day-temp">${temp}°C</span>
+        <span class="day-desc">${desc}</span>
+    `;
+    forecastGrid.appendChild(card);
+});
+
+    forecastContainer.style.display = 'block';
     } else {
-        weatherDetails.style.display = 'none';
-        alert("City not found!");
+        forecastContainer.style.display = 'none';
     }
 }
 

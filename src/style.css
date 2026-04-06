@@ -140,6 +140,74 @@ body {
     margin-top: -5px;
 }
 
+.forecast-container {
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+.forecast-title {
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 12px;
+}
+
+.forecast-grid {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.forecast-day {
+    flex: 1;
+    background: linear-gradient(145deg, rgba(255, 111, 216, 0.35), rgba(56, 19, 194, 0.45));
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 14px 8px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.forecast-day:hover {
+    transform: translateY(-4px);
+    background: linear-gradient(145deg, rgba(255, 111, 216, 0.5), rgba(56, 19, 194, 0.6));
+}
+
+.forecast-day .day-name {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
+.forecast-day img {
+    width: 38px;
+    height: 38px;
+}
+
+.forecast-day .day-temp {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.forecast-day .day-desc {
+    font-size: 11px;
+    opacity: 0.75;
+    text-align: center;
+    line-height: 1.3;
+}
+
 footer {
     color: white;
 }
