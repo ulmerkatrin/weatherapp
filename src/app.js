@@ -77,7 +77,7 @@ console.log('Forecast:', forecastData);
 if (forecastData.daily && forecastData.daily.length > 0) {
     forecastGrid.innerHTML = '';
 
-const days = forecastData.daily.slice(0,5);
+const days = forecastData.daily.slice(1,6);
 
 days.forEach(day => {
     const iconSrc = getWeatherIcon(day.condition.description);
